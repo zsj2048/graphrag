@@ -45,25 +45,25 @@ async def generate_text_embeddings(
     embedding_param_map = {
         document_text_embedding: {
             "data": final_documents.loc[:, ["id", "text"]]
-            if final_documents is not None
+            if final_documents is not None and not final_documents.empty
             else None,
             "embed_column": "text",
         },
         relationship_description_embedding: {
             "data": final_relationships.loc[:, ["id", "description"]]
-            if final_relationships is not None
+            if final_relationships is not None or not final_relationships.empty
             else None,
             "embed_column": "description",
         },
         text_unit_text_embedding: {
             "data": final_text_units.loc[:, ["id", "text"]]
-            if final_text_units is not None
+            if final_text_units is not None or not final_text_units.empty
             else None,
             "embed_column": "text",
         },
         entity_title_embedding: {
             "data": final_entities.loc[:, ["id", "title"]]
-            if final_entities is not None
+            if final_entities is not None or not final_entities.empty
             else None,
             "embed_column": "title",
         },
@@ -71,25 +71,25 @@ async def generate_text_embeddings(
             "data": final_entities.loc[:, ["id", "title", "description"]].assign(
                 title_description=lambda df: df["title"] + ":" + df["description"]
             )
-            if final_entities is not None
+            if final_entities is not None or not final_documents.empty
             else None,
             "embed_column": "title_description",
         },
         community_title_embedding: {
             "data": final_community_reports.loc[:, ["id", "title"]]
-            if final_community_reports is not None
+            if final_community_reports is not None or not final_community_reports.empty
             else None,
             "embed_column": "title",
         },
         community_summary_embedding: {
             "data": final_community_reports.loc[:, ["id", "summary"]]
-            if final_community_reports is not None
+            if final_community_reports is not None or not final_community_reports.empty
             else None,
             "embed_column": "summary",
         },
         community_full_content_embedding: {
             "data": final_community_reports.loc[:, ["id", "full_content"]]
-            if final_community_reports is not None
+            if final_community_reports is not None or not final_community_reports.empty
             else None,
             "embed_column": "full_content",
         },
